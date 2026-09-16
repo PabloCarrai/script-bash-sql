@@ -10,7 +10,7 @@ traer_db(){
 }
 
 if [ -f $ARCHIVO ]; then
-    echo "Aca traeria las db existentes"
+    echo "Dbs en Existencia:"
     traer_db
 else
     echo "El archivo no existe."
