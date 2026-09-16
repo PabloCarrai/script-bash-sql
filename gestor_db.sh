@@ -26,30 +26,34 @@ MENU=$(cat << 'EOF'
 EOF
 )
 
-
-
-
-
+#   Necesito que el archivo exista
 if [ -f $ARCHIVO ]; then
-    echo "$MENU"
-    read ELECCION
-    case $ELECCION in
-        1)
-            echo "Dbs en Existencia:"
-            traer_db
-            ;;
-        2)
-            echo "Dbs creada"
-            crear_db
-            ;;
-        3)
-            echo "???"
-            ;;
-        *)
-            echo "???"
-            ;;
-    esac
-
+    # Verifico si el cliente mariadb esta instalado
+    if command -v mariadb &> /dev/null; then
+        # En este caso mostramos menu y esperamos ingreso de opciones por teclado        
+        echo "$MENU"
+        read ELECCION
+        case $ELECCION in
+            1)
+                echo "Dbs en Existencia:"
+                traer_db
+                ;;
+            2)
+                echo "Dbs creada"
+                crear_db
+                ;;
+            3)
+                echo "???"
+                ;;
+            *)
+                echo "???"
+                ;;
+        esac
+    else
+        # Código si NO se cumple la condicion2
+        echo "Estamos al horno, no tenes instalado el cliente mariadb"
+    fi
 else
-    echo "El archivo no existe."
+    # Código si NO se cumple la condicion1
+    echo "Estamos al horno con papas, no tenes el archivo de credenciales.env"
 fi
