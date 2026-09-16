@@ -15,6 +15,10 @@ crear_db(){
     echo "Db creada"
 }
 
+listar_db(){
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select schema_name from information_schema.schemadata"    
+}
+
 MENU=$(cat << 'EOF'
 ====================================
       MENÚ DE OPCIONES
@@ -44,6 +48,7 @@ if [ -f $ARCHIVO ]; then
                 ;;
             3)
                 echo "???"
+                listar_db
                 ;;
             *)
                 echo "???"
