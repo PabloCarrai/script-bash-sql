@@ -16,7 +16,7 @@ crear_db(){
 }
 
 listar_db(){
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select schema_name from information_schema.schemadata"    
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select schema_name from information_schema.schemata"    
 }
 
 MENU=$(cat << 'EOF'
