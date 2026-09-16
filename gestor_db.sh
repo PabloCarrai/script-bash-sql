@@ -11,7 +11,7 @@ traer_db(){
 
 crear_db(){
     read -p "Ingresa el nombre de la base de datos a crear..." DATABASE
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create database if not exists \"$DATABASE"\;"
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create database if not exists $DATABASE;"
     echo "Db creada"
 }
 
