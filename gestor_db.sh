@@ -25,26 +25,21 @@ EOF
 
 
 if [ -f $ARCHIVO ]; then
-    echo $MENU
-    read entorno
-
-    # 2. El 'case' corre dentro del 'if'
-    case $entorno in
+    echo "$MENU"
+    read ELECCION
+    case $ELECCION in
         1)
-
             echo "Dbs en Existencia:"
             traer_db
-
-
             ;;
         2)
-            echo "Conectando al servidor de Pruebas..."
+            echo "???"
             ;;
         3)
-            echo "¡Alerta! Conectando al servidor de Producción..."
+            echo "???"
             ;;
         *)
-            echo "Entorno desconocido."
+            echo "???"
             ;;
     esac
 
