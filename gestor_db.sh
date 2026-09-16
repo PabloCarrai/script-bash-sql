@@ -6,7 +6,7 @@ ARCHIVO="$(dirname "$(readlink -f "$0")")/credenciales.env"
 source $ARCHIVO
 
 traer_db(){
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" -e "show databases;"
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "show databases;" 
 }
 
 if [ -f $ARCHIVO ]; then
