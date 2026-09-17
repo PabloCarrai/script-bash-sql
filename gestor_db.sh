@@ -65,7 +65,7 @@ if [ -f $ARCHIVO ]; then
                 #listar_db
                 ;;
             4)
-                listar_usuario()
+                listar_usuario
                 #echo "Dbs disponibles"
                 #listar_db
                 ;;
