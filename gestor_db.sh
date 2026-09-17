@@ -19,13 +19,26 @@ listar_db(){
     mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select schema_name from information_schema.schemata"    
 }
 
+crear_usuario(){
+    echo "Vamos a crear un usuario" 
+    read -p "Necesito el nombre del usuario" NUEVOUSUARIO
+    read -p "Necesito La clave de $NUEVOUSUARIO" CLAVEUSUARIO
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create user if not exist $NUEVOUSUARIO@% identified by $CLAVEUSUARIO;"
+}
+
+listar_usuario(){
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select distinct User from mysql.user;"
+}
+
 MENU=$(cat << 'EOF'
 ====================================
       MENÚ DE OPCIONES
 ====================================
 1) Mostrar DBs
 2) Crear DBs
-3) ???
+3) Crear Usuario
+4) Listar Usuarios
+5) ???...
 ====================================
 EOF
 )
@@ -47,8 +60,20 @@ if [ -f $ARCHIVO ]; then
                 crear_db
                 ;;
             3)
-                echo "???"
-                listar_db
+                crear_usuario                
+                #echo "Dbs disponibles"
+                #listar_db
+                ;;
+
+            4)
+                listar_usuario()
+                #echo "Dbs disponibles"
+                #listar_db
+                ;;
+
+            5)
+                #echo "Dbs disponibles"
+                #listar_db
                 ;;
             *)
                 echo "???"
