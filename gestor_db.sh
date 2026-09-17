@@ -23,7 +23,7 @@ crear_usuario(){
     echo "Vamos a crear un usuario" 
     read -p "Necesito el nombre del usuario" NUEVOUSUARIO
     read -p "Necesito La clave de $NUEVOUSUARIO" CLAVEUSUARIO
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create user if not exist $NUEVOUSUARIO@% identified by $CLAVEUSUARIO;"
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create user if not exists $NUEVOUSUARIO@% identified by $CLAVEUSUARIO;"
 }
 
 listar_usuario(){
