@@ -27,7 +27,7 @@ crear_usuario(){
 }
 
 listar_usuario(){
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select distinct User from mysql.user;"
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select distinct concat(user,'@', host) As usuario_host from mysql.user;"
 }
 
 otorgar_permisos_totales(){
