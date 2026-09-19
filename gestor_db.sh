@@ -6,39 +6,45 @@ ARCHIVO="$(dirname "$(readlink -f "$0")")/credenciales.env"
 source $ARCHIVO
 
 traer_db(){
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "show databases;"  </dev/tty
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "show databases;"
 }
 
 crear_db(){
     read -p "Ingresa el nombre de la base de datos a crear..." DATABASE
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create database if not exists $DATABASE;" </dev/tty
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create database if not exists $DATABASE;"
     echo "Db creada"
 }
 
 listar_db(){
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select schema_name from information_schema.schemata;" </dev/tty    
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select schema_name from information_schema.schemata;"
 }
 
 crear_usuario(){
     echo "Vamos a crear un usuario" 
     read -p "Necesito el nombre del usuario" NUEVOUSUARIO
     read -p "Necesito La clave de $NUEVOUSUARIO" CLAVEUSUARIO
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create user if not exists '$NUEVOUSUARIO'@'%' identified by '$CLAVEUSUARIO';" </dev/tty
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "create user if not exists '$NUEVOUSUARIO'@'%' identified by '$CLAVEUSUARIO';"
 }
 
 listar_usuario(){
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select distinct User from mysql.user;" </dev/tty
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select distinct User from mysql.user;"
 }
 
 otorgar_permisos_totales(){
     echo "A que usuario le asignamos permisos totales"
     listar_usuario
-    read -p "Necesito el nombre del usuario" NUEVOUSUARIO </dev/tty
+    
+    echo -n "Necesito el nombre del usuario: "
+    read NUEVOUSUARIO </dev/tty
+    
     echo "Sobre que db tiene que tener permisos totales?"
     traer_db
-    read -p "Sobre que debe actuamos? " DB </dev/tty
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "grant all privileges on '$DB'.* to '$NUEVOUSUARIO'@'%';" </dev/tty
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "flush privileges;" </dev/tty
+    
+    echo -n "Sobre que db actuamos?: "
+    read DB </dev/tty
+
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "grant all privileges on \`$DB\`.* to '$NUEVOUSUARIO'@'%';"
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "flush privileges;"
 }
 
 
