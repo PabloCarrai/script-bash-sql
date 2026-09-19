@@ -31,17 +31,18 @@ listar_usuario(){
 }
 
 otorgar_permisos_totales(){
+    # Abrimos la terminal explícitamente para los comandos de lectura de este bloque
+    exec < /dev/tty
+
     echo "A que usuario le asignamos permisos totales"
     listar_usuario
     
-    echo -n "Necesito el nombre del usuario: "
-    read NUEVOUSUARIO </dev/tty
+    read -p "Necesito el nombre del usuario: " NUEVOUSUARIO
     
     echo "Sobre que db tiene que tener permisos totales?"
     traer_db
     
-    echo -n "Sobre que db actuamos?: "
-    read DB </dev/tty
+    read -p "Sobre que db actuamos?: " DB
 
     mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "grant all privileges on \`$DB\`.* to '$NUEVOUSUARIO'@'%';"
     mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "flush privileges;"
