@@ -38,7 +38,7 @@ MENU=$(cat << 'EOF'
 2) Crear DBs
 3) Crear Usuario
 4) Listar Usuarios
-5) ???...
+5) Asignar permisos de usuario(totales)
 ====================================
 EOF
 )
@@ -70,8 +70,12 @@ if [ -f $ARCHIVO ]; then
                 #listar_db
                 ;;
             5)
-                echo "Dbs disponibles"
-                #listar_db
+                echo "A que usuario le asignamos permisos totales"
+                echo "Lista de usuarios"
+                listar_usuario
+                echo "Sobre que db tiene que tener permisos totales?"
+                echo "Lista de dbs"
+                traer_db
                 ;;
             *)
                 echo "???"
