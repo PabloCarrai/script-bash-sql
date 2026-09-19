@@ -33,7 +33,7 @@ listar_usuario(){
 otorgar_permisos_totales(){
     read -p "Necesito el nombre del usuario: " NUEVOUSUARIO
     read -p "Sobre que db actuamos?: " DB
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "grant all privileges on \`$DB\`.* to '$NUEVOUSUARIO'@'%';"
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "grant all privileges on \`$DB\`.* to '$NUEVOUSUARIO';"
     mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "flush privileges;"
 }
 
