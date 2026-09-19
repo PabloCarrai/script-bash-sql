@@ -30,6 +30,19 @@ listar_usuario(){
     mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "select distinct User from mysql.user;"
 }
 
+otorgar_permisos_totales(){
+    echo "A que usuario le asignamos permisos totales"
+    listar_usuario
+    read -p "Necesito el nombre del usuario" NUEVOUSUARIO
+    echo "Sobre que db tiene que tener permisos totales?"
+    traer_db
+    read -p "Sobre que debe actuamos? " DB
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "grant all privileges on '$DB'.* to '$NUEVOUSUARIO'@'%';"
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "flush privileges;"
+}
+
+
+
 MENU=$(cat << 'EOF'
 ====================================
       MENÚ DE OPCIONES
