@@ -39,6 +39,13 @@ otorgar_permisos_totales(){
     mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "flush privileges;"
 }
 
+eliminar_usuario(){
+    read -p "Nombre del usuario a eliminar: " USUARIOELIMINAR
+    read -p "El ambito del $USUARIOELIMINAR" AMBITO
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "drop user if exists '$USUARIOELIMINAR'@'$AMBITO';"
+
+}
+
 
 
 MENU=$(cat << 'EOF'
@@ -50,6 +57,7 @@ MENU=$(cat << 'EOF'
 3) Crear Usuario
 4) Listar Usuarios
 5) Asignar permisos de usuario(totales)
+6) Eliminar Usuario
 ====================================
 EOF
 )
@@ -84,6 +92,11 @@ if [ -f $ARCHIVO ]; then
                 otorgar_permisos_totales
 
                 ;;
+
+            6)
+                eliminar_usuario
+                ;;
+
             *)
                 echo "???"
                 ;;
