@@ -48,7 +48,7 @@ eliminar_usuario(){
 
 eliminar_db(){
     read -p "Nombre de la db a eliminar: " DBELIMINAR
-    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "drop database if exists '$DBELIMINAR';"
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "drop database if exists $DBELIMINAR;"
 }
 
 
