@@ -57,7 +57,7 @@ MENU=$(cat << 'EOF'
 ====================================
       MENÚ DE OPCIONES
 ====================================
-1) Mostrar DBs
+1) Listar DBs
 2) Crear DBs
 3) Crear Usuario
 4) Listar Usuarios
