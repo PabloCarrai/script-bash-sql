@@ -46,6 +46,11 @@ eliminar_usuario(){
 
 }
 
+eliminar_db(){
+    read -p "Nombre de la db a eliminar: " DBELIMINAR
+    mariadb -h "$HOST" -u"$USUARIO" -p"$CLAVE" --skip-ssl -e "drop database if exists '$DBELIMINAR';"
+}
+
 
 
 MENU=$(cat << 'EOF'
@@ -58,6 +63,7 @@ MENU=$(cat << 'EOF'
 4) Listar Usuarios
 5) Asignar permisos de usuario(totales)
 6) Eliminar Usuario
+7) Eliminar Db
 ====================================
 EOF
 )
@@ -90,13 +96,13 @@ if [ -f $ARCHIVO ]; then
                 ;;
             5)
                 otorgar_permisos_totales
-
                 ;;
-
             6)
                 eliminar_usuario
                 ;;
-
+            7)
+                eliminar_db
+                ;;
             *)
                 echo "???"
                 ;;
